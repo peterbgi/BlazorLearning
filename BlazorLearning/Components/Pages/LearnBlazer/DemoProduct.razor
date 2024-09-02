@@ -2,47 +2,23 @@
 
 <h2 class="bg-danger text-black">Műveletek</h2>
 
+<p>Kedvencek: @favouriteCount</p>
+
 <div class="border p-1 mt-2 bg-secondary text-center align-items-center">
     <div class="row">
         @foreach(var p in ProductList)
         {
-            <div class="bg-light border m-1 col-6">
-                <h4 class="text-secondary">Termékek- @p.Id</h4>
-                Név: @p.Name
-                Tulajdonságog:
-                <input type="checkbox" @bind="p.IsActive" />
+            <_IndividualProduct Product="p" onFavouroteUpdate="favouriteCountChange">
 
-                @if (p.IsActive)
-                {
-                    @foreach(var prop in p.Productproperties)
-                    {
-                        <p>@prop.Key - @prop.Value</p>
-                    }
-                }
-                <br />
-
-                <input type="button"
-                      class="btn btn-danger"
-                      style="width:100px" value="Törlés"
-                       @onclick="() => removeProd(p.Id)" />
-            </div>
+            </_IndividualProduct>
         }
-    </div>
-
-    <div class="row py-4">
-        <input type="button"
-               class="btn btn-success"
-               style="width:70px" value="Számláló" 
-               @onclick="() => incrementCount(5)"
-               />
-        Összeg: @Count
     </div>
 </div>
 
 
 
 @code {
-    public int Count { get; set; } = 0;
+    public int favouriteCount { get; set; } = 0;
 
     List<Product> ProductList = new();
 
@@ -75,10 +51,20 @@
             });
     }
 
-    private void incrementCount(int counter)
+    protected void favouriteCountChange(bool isSelected)
     {
-        Count+=counter;
+        if (isSelected)
+        {
+            favouriteCount++;
+        }
+        else
+        {
+            favouriteCount--;
+        }
+
     }
+
+   
 
     private void removeProd(int prodId)
     {
