@@ -4,16 +4,45 @@
 
 Név: @Product.Name <br />
 Készleten: @Product.IsActive <br />
+A termék: @(Product.IsActive? "Van" : "Nincs") <br />
 Mennyiség: @Product.Price <br />
-Input mennyiség: <input type="number" @bind-value="@Product.Price" />
+
+
+
+Készleten: <input type="checkbox" @bind="@Product.IsActive"  /> <br />
+Input mennyiség: <input type="number" @bind-value="@Product.Price" bind-value:event="input" /> <br />
+
+<select @bind="selectedProp">
+    @foreach(var p in Product.Productproperties)
+    {
+        <option value="@p.Key">@p.Key</option>
+    }
+</select>
+
+<br />
+Választott: @selectedProp
+
+@if(!string.IsNullOrEmpty(selectedProp))
+{
+    <p>Érték: @Product.Productproperties.FirstOrDefault(x => x.Key == selectedProp).Value</p>
+}
+
 
 @code {
+    private string selectedProp = "";
+
     Models.Product Product = new()
         {
             Id = 1,
             Name = "Tejbepapi",
             IsActive = true,
-            Price = 5
+            Price = 5,
+            Productproperties = new List<Models.Product_Prop> ()
+            {
+                new Models.Product_Prop {Id = 1, Key = "Szín", Value = "Zöld"},
+                new Models.Product_Prop {Id = 2, Key = "Méret", Value = "Nagy"},
+                new Models.Product_Prop {Id = 3, Key = "Virág", Value = "Rozsa"},
+            }
         };
-
+        
 }

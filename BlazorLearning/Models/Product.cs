@@ -8,6 +8,8 @@
 
         public int Price { get; set; }
 
-        public bool IsActive { get; set; }  
+        public bool IsActive { get; set; }
+        
+        public IEnumerable<Product_Prop> Productproperties{ get; set;}
     }
 }
