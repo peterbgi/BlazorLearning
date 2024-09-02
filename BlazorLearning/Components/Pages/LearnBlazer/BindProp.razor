@@ -1,0 +1,16 @@
+﻿@page "/learnBlazer/bindprop"
+
+<h3>Termékek - Dsta Binding</h3>
+
+Név: @Product.Name <br />
+Készleten: @Product.IsActive
+
+@code {
+    Models.Product Product = new()
+        {
+            Id = 1,
+            Name = "Tejbepapi",
+            IsActive = true
+        };
+
+}
