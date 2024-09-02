@@ -2,7 +2,7 @@
 
 <h2 class="bg-danger text-black">Műveletek</h2>
 
-<div class="border p-2 mt-2 bg-secondary">
+<div class="border p-1 mt-2 bg-secondary text-center align-items-center">
     <div class="row">
         @foreach(var p in ProductList)
         {
@@ -19,31 +19,30 @@
                         <p>@prop.Key - @prop.Value</p>
                     }
                 }
+                <br />
 
-
+                <input type="button"
+                      class="btn btn-danger"
+                      style="width:100px" value="Törlés"
+                       @onclick="() => removeProd(p.Id)" />
             </div>
         }
+    </div>
+
+    <div class="row py-4">
+        <input type="button"
+               class="btn btn-success"
+               style="width:70px" value="Számláló" 
+               @onclick="() => incrementCount(5)"
+               />
+        Összeg: @Count
     </div>
 </div>
 
 
 
 @code {
-
-    Product Product = new()
-        {
-            Id = 1,
-            Name = "Tejbepapi",
-            IsActive = true,
-            Price = 5,
-            Productproperties = new List<Models.Product_Prop>()
-            {
-                new Product_Prop {Id = 1, Key = "Szín", Value = "Zöld"},
-                new Product_Prop {Id = 2, Key = "Méret", Value = "Nagy"},
-                new Product_Prop {Id = 3, Key = "Virág", Value = "Rozsa"},
-            }
-        };
-
+    public int Count { get; set; } = 0;
 
     List<Product> ProductList = new();
 
@@ -74,6 +73,20 @@
                 new Product_Prop {Id = 3,Key = "Color",Value = "White"}
             }
             });
+    }
+
+    private void incrementCount(int counter)
+    {
+        Count+=counter;
+    }
+
+    private void removeProd(int prodId)
+    {
+        var prod = ProductList.FirstOrDefault(x => x.Id == prodId);
+        if (prod != null)
+        {
+            ProductList.Remove(prod);
+        }
     }
 
 }
