@@ -3,12 +3,14 @@
 <h2 class="bg-danger text-black">Műveletek</h2>
 
 <p>Kedvencek: @favouriteCount</p>
+<p>Választott kedvenc: @selectedProduct</p>
 
 <div class="border p-1 mt-2 bg-secondary text-center align-items-center">
     <div class="row">
         @foreach(var p in ProductList)
         {
-            <_IndividualProduct Product="p" onFavouroteUpdate="favouriteCountChange">
+            <_IndividualProduct Product="p" onFavouroteUpdate="favouriteCountChange"
+                                onSelectedProdCange="UpdateSelectedProd">
 
             </_IndividualProduct>
         }
@@ -19,6 +21,7 @@
 
 @code {
     public int favouriteCount { get; set; } = 0;
+    public string selectedProduct { get; set; } = string.Empty;
 
     List<Product> ProductList = new();
 
@@ -64,15 +67,12 @@
 
     }
 
+    protected void UpdateSelectedProd(string prodName)
+    {
+        selectedProduct = prodName;
+    }
+
    
 
-    private void removeProd(int prodId)
-    {
-        var prod = ProductList.FirstOrDefault(x => x.Id == prodId);
-        if (prod != null)
-        {
-            ProductList.Remove(prod);
-        }
-    }
 
 }

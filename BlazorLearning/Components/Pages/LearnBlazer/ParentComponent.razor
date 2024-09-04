@@ -1,0 +1,25 @@
+﻿@page "/learnBlazer/parentcomponent"
+
+<_ChildComponent
+    onButtonClickk="showMessage"
+    Title="Ezt a címet a szülő paraméterként adja át a"
+    messageForGrandChild="Fiam veled az erő">
+    <ChildSomeContent>Valami szöveg</ChildSomeContent>
+
+    <ChildContent> Random szöveg újra!!
+        <br />
+        <p class="text-primary">Ez már más</p>
+        </ChildContent>
+</_ChildComponent>
+
+<p>@messageText</p>
+
+@code {
+    public string messageText = "";
+
+    private void showMessage()
+    {
+        messageText = "Ez egy üzenet lehet";
+    }
+
+}
