@@ -1,12 +1,17 @@
 ﻿<div class="row">
     <h4 class="text-primary pl-3 pt-3 col-12">Nagyapó</h4>
     <p>Ez a nagyapa componemt @messageForGrandChild</p>
+    <p>Szerencseszám @luckyNumberForGrandChild</p>
 </div>
 
 @code {
 
 
-    [Parameter]
+    [CascadingParameter(Name = "Message")]
     public string messageForGrandChild { get; set; }
 
+    [CascadingParameter(Name = "luckyNumber")]
+    public string luckyNumberForGrandChild { get; set; }
+
 }
+
