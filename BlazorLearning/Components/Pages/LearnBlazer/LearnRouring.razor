@@ -1,6 +1,6 @@
 ﻿@page "/learnrouting"
-@page "/learnrouting/{Param1}/{Param2}"
-@page "/learnrouting/{Param1}"
+@* @page "/learnrouting/{Param1}/{Param2}"
+@page "/learnrouting/{Param1} "*@
 @page "/learnBlazer/learnrouting"
 @page "/learnrouting/learnBlazer"
 @page "/learnrouting/catch-all/{*PageParameters}"
@@ -30,10 +30,10 @@
 <br />
 
 @code {
-    [Parameter]
+    [SupplyParameterFromQuery(Name = "Param1")]
     public string Param1 { get; set; }
 
-    [Parameter]
+    [SupplyParameterFromQuery]
     public string Param2 { get; set; } = "";
 
     [Parameter]
@@ -54,3 +54,5 @@
         _NavigationManager.NavigateTo("learnRouting?Param1=Learn&Param2=Blazor");
     }
 }
+
+
