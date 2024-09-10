@@ -1,0 +1,30 @@
+﻿<h3>_LifeCicleComponent</h3>
+
+@foreach (var i in EventType)
+{
+    @i
+    <hr />
+}
+
+@code {
+
+    List<string> EventType = new List<string>();
+
+  
+
+
+    [Parameter]
+    public int currentValue { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        EventType.Add("Child függvényhívás(async nélkül).");
+    }
+
+    protected override void OnParametersSet()
+    {
+        EventType.Add("Függvényhívás async nélkül OnParameters Child.");
+    }
+
+}

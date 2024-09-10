@@ -2,7 +2,7 @@
 
 <CascadingValue Value="@messageForGrandChildTemp" Name="Message">
     <CascadingValue Value="@luckyNumber" Name="luckyNumber">
-        <_ChildComponent onButtonClickk="showMessage"
+        <_ChildComponent @ref="childComp" onButtonClickk="showMessage"
                          Title="Ezt a címet a szülő paraméterként adja át a"
                          messageForGrandChild="Fiam veled az erő">
             <ChildSomeContent>Valami szöveg</ChildSomeContent>
@@ -18,7 +18,15 @@
 
 <p>@messageText</p>
 
+<div class="row">
+    <button class="btn btn-outline-success"
+            @onclick="()=>childComp.ToastrSuccess()">
+        Mutass valami szépet!!
+    </button>
+</div>
+
 @code {
+    private _ChildComponent childComp;
     private string messageForGrandChildTemp = "Fiam veled az erő";
     private string luckyNumber = "6";
     public string messageText = "";

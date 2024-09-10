@@ -1,0 +1,96 @@
+﻿@page "/lifecicle"
+@using System.Threading
+
+<PageTitle>Life Cicle</PageTitle>
+
+<h3 class="text-success">.NET 9 </h3>
+
+<p role="status">Kattintás szám: @currentCount</p>
+
+
+<button class="btn btn-primary" @onclick="IncrementCount">Nyomj meg</button>
+
+<div class="border">
+    <_LifeCicleChildComponent currentValue="@currentCount"></_LifeCicleChildComponent>
+</div>
+
+@foreach(var i in EventType)
+{
+    <p>@i</p>
+    <hr />
+}
+
+@count <button @onclick=StartCountDown>Start Countdown</button>
+
+@code {
+    private int currentCount = 0;
+    private int count  = 5;
+    List<string> EventType = new List<string>();
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        EventType.Add("Függvényhívás async.");
+    }
+
+    protected override void OnInitialized()
+    {
+        EventType.Add("Függvényhívás async nélkü.");
+    }
+
+    protected override void OnParametersSet()
+    {
+        EventType.Add("Függvényhívás async nélkül OnParameters.");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+
+        EventType.Add("Függvényhívás async OnParameters");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            currentCount = 100;
+        }
+        else
+        {
+            currentCount = 200;
+        }
+
+        EventType.Add("AfterRender.");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        EventType.Add("Függvényhívás async OnParameters");
+    }
+
+    protected override bool ShouldRender()
+    {
+        EventType.Add("ShouldRender");
+        return true;
+    }
+    void StartCountDown()
+    {
+        var timer = new Timer(TimerCallback, null, 1000, 1000);
+    }
+    void TimerCallback(object state)
+    {
+        if (count > 0)
+        {
+            count--;
+            InvokeAsync(StateHasChanged);
+        }
+    }
+}
+
+
